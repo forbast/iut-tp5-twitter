@@ -1,16 +1,7 @@
 <template>
   <div>
     <h1>coucouc</h1>
-    <ul>
-      <li>
-        <router-link to="/timeline">Timeline</router-link>
-      </li>
-    </ul>
-    <ul>
-      <li v-for="tweet in tweets">
-        <tweet :tweet="tweet"/>
-      </li>
-    </ul>
+    <feed :tweets="tweets" :loading="loading"/>
   </div>
 </template>
 
@@ -19,21 +10,21 @@
 import Vue from 'vue'
 import Resource from 'vue-resource'
 Vue.use(Resource)
-
-import Tweet from './Tweet'
+import Feed from './Feed'
 export default {
   name: 'hello',
   data () {
     return {
-      tweets: []
+      tweets: [],
+      loading: true
     }
   },
-  components: {Tweet},
+  components: {Feed},
   methods: {
     fetchTweets: function () {
       this.$http.get('http://localhost:8080/list').then(response => {
         this.tweets = response.body
-        console.log(response.body)
+        this.loading = false
       }, response => {
       })
     }
