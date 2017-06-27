@@ -10,6 +10,7 @@
         </li>
         <li class="button">
           <icon name="retweet"/>
+          {{tweet.retweeters.length}}
         </li>
         <li class="button">
           <icon name="heart"/>
