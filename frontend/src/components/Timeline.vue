@@ -16,20 +16,32 @@
 
 
 <script>
-var tweet1 = {auteur: 'test1', contenu: 'test1234'}
-var tweet2 = {auteur: 'test2', contenu: 'test234'}
-var tweet3 = {auteur: 'test3', contenu: 'test34'}
+import Vue from 'vue'
+import Resource from 'vue-resource'
+Vue.use(Resource)
+
 import Tweet from './Tweet'
 export default {
   name: 'hello',
   data () {
     return {
-      tweets: [tweet1, tweet2, tweet3]
+      tweets: []
     }
   },
-  components: {Tweet}
+  components: {Tweet},
+  methods: {
+    fetchTweets: function () {
+      this.$http.get('http://localhost:8080/list').then(response => {
+        this.tweets = response.body
+        console.log(response.body)
+      }, response => {
+      })
+    }
+  },
+  created () {
+    this.fetchTweets()
+  }
 }
-
 </script>
 
 <style scoped>
@@ -41,6 +53,4 @@ li {
   display: block;
   margin: 0 10px;
 }
-
-
 </style>
