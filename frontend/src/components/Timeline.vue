@@ -7,18 +7,21 @@
       </li>
     </ul>
     <ul>
-      <li v-for="tweet in tweets">{{tweet}}</li>
+      <li v-for="tweet in tweets">{{ tweet.auteur }} : {{ tweet.contenu }}</li>
     </ul>
   </div>
 </template>
 
 
 <script>
+var tweet1 = {auteur: 'test1', contenu: 'test1234'}
+var tweet2 = {auteur: 'test2', contenu: 'test234'}
+var tweet3 = {auteur: 'test3', contenu: 'test34'}
 export default {
   name: 'hello',
   data () {
     return {
-      tweets: ['tweet 1', 'tweet 2', 'tweet 3']
+      tweets: [tweet1, tweet2, tweet3]
     }
   }
 }
