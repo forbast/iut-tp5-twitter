@@ -6,6 +6,9 @@
         <router-link to="/timeline">Timeline</router-link>
       </li>
     </ul>
+    <ul>
+      <li v-for="tweet in tweets">{{tweet}}</li>
+    </ul>
   </div>
 </template>
 
@@ -19,7 +22,6 @@ export default {
     }
   }
 }
-
 </script>
 
 <style scoped>
@@ -31,4 +33,5 @@ li {
   display: block;
   margin: 0 10px;
 }
+
 </style>
