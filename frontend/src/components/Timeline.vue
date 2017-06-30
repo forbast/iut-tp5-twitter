@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>coucouc</h1>
-    <feed :tweets="tweets" :loading="loading"/>
+    <feed :tweets="tweets" :loading="loading" @retweeted="retweet"/>
   </div>
 </template>
 
@@ -21,6 +21,10 @@ export default {
   },
   components: {Feed},
   methods: {
+    retweet: function (id) {
+      var tweet = this.tweets.find(tweet => tweet.id === id)
+      tweet.retweeters.push({handle: 'snoopdog'})
+    },
     fetchTweets: function () {
       this.$http.get('http://localhost:8080/list').then(response => {
         this.tweets = response.body

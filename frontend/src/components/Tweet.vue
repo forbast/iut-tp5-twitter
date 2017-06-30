@@ -23,28 +23,36 @@
   </div>
 </template>
 <script>
-  import 'vue-awesome/icons'
-  import Icon from 'vue-awesome/components/Icon'
-  import moment from 'moment'
-  export default {
-    name: 'tweet',
-    props: ['tweet'],
-    components: {Icon},
-    methods: {
-      moment: function (date) { return moment(date) },
-      retweet: function (id) {
-        var data = new FormData()
-        data.append('utilisateur', 'johndoe')
-        data.append('tweet', id)
-        this.$http.post('http://localhost:8080/retweet', data, {responseType: 'text'})
-      }
+import 'vue-awesome/icons'
+import moment from 'moment'
+import Icon from 'vue-awesome/components/Icon'
+import Vue from 'vue'
+import Resource from 'vue-resource'
+Vue.use(Resource)
+export default {
+  created: function () {
+    moment.locale('fr')
+  },
+  name: 'tweet',
+  components: {Icon},
+  props: ['tweet'],
+  methods: {
+    moment: function (date) {
+      return moment(date)
     },
-    created () {
-      moment.locale('fr')
+    retweet: function () {
+      this.$http.get('http://localhost:8080/retweet', {params: {utilisateur: 'johndoe', tweet: this.tweet.id}, responseType: 'text'}).then(
+      response => {
+        this.$emit('retweeted', this.tweet.id)
+      },
+      response => {
+        // error callback
+      })
     }
   }
-
+}
 </script>
+
 
 <style scoped>
 li.button {
