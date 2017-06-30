@@ -8,10 +8,10 @@
         <li class="button">
           <icon name="reply"/>
         </li>
-        <li class="button">
+        <a @click="retweet(tweet.id)"> <li class="button">
           <icon name="retweet"/>
           {{tweet.retweeters.length}}
-        </li>
+        </li></a>
         <li class="button">
           <icon name="heart"/>
         </li>
@@ -31,7 +31,13 @@
     props: ['tweet'],
     components: {Icon},
     methods: {
-      moment: function (date) { return moment(date) }
+      moment: function (date) { return moment(date) },
+      retweet: function (id) {
+        var data = new FormData()
+        data.append('utilisateur', 'johndoe')
+        data.append('tweet', id)
+        this.$http.post('http://localhost:8080/retweet', data, {responseType: 'text'})
+      }
     },
     created () {
       moment.locale('fr')
